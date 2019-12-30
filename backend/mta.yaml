@@ -1,0 +1,47 @@
+﻿ID: fic_backend
+_schema-version: 3.1.0
+version: 1.0.0
+
+modules:
+    -
+        name: fic_db
+        type: hdb
+        path: db
+        provides:
+            - {name: fic_db, public: true}
+        parameters:
+            memory: 256M
+            disk-quota: 256M
+        requires:
+            - {name: fic_hdi}
+    -
+        name: fic_srv
+        type: nodejs
+        path: srv
+        properties:
+            XS_APP_LOG_LEVEL: debug
+        parameters:
+            memory: 256M
+            disk-quota: 1024M
+        provides:
+            - {name: fic_srv, public: true, properties: {url: '${default-url}'}}
+        requires:
+            - {name: fic_db}
+            - {name: fic_hdi}
+            - {name: fic_uaa}
+            - {name: fic_dest}
+            - {name: fic_conn}
+
+resources:
+    -
+        name: fic_hdi
+        type: org.cloudfoundry.existing-service
+    -
+        name: fic_uaa
+        type: org.cloudfoundry.existing-service
+    -
+        name: fic_dest
+        type: org.cloudfoundry.existing-service
+    -
+        name: fic_conn
+        type: org.cloudfoundry.existing-service
