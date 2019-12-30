@@ -1,17 +1,17 @@
-using User as _User from '../db/User';
-using Address as _Address from '../db/ExtraInfo';
-using Cars as _Cars from '../db/ExtraInfo';
+using Bag as _Bag from '../db/Bag';
+using Address as _Address from '../db/BagInfo';
+using Laptops as _Laptops from '../db/BagInfo';
 
 service odata {
 
-  entity Users @(
-		title: 'Users',
+  entity Bags @(
+		title: 'Bags',
 		Capabilities: {
 			InsertRestrictions: {Insertable: false},
 			UpdateRestrictions: {Updatable: false},
 			DeleteRestrictions: {Deletable: false}
 		}
-	) as projection on _User;
+	) as projection on _Bag;
 
   entity Address @(
 		title: 'Address',
@@ -22,13 +22,13 @@ service odata {
 		}
 	) as projection on _Address;
 
-    entity Cars @(
-		title: 'Cars',
+    entity Laptops @(
+		title: 'Laptops',
 		Capabilities: {
 			InsertRestrictions: {Insertable: false},
 			UpdateRestrictions: {Updatable: false},
 			DeleteRestrictions: {Deletable: false}
 		}
-	) as projection on _Cars;
+	) as projection on _Laptops;
 
 }

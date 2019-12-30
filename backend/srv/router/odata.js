@@ -28,12 +28,12 @@ module.exports = function () {
         // }
     });
 
-    this.on("CREATE", "Users", async (User) => {
+    this.on("CREATE", "Bags", async (Bag) => {
         req.log.debug(`ON CREATE ${req.target["@Common.Label"]}`);
 
         const {
             data
-        } = User;
+        } = Bag;
         if (data.length < 1) {
             return null;
         }
@@ -47,8 +47,8 @@ module.exports = function () {
 //		throw new Error(`Invalid email for ${data.FIRSTNAME}. No Way! E-Mail must be valid and ${data.EMAIL} has problems`);
         }
 
-        const sSql = `INSERT INTO "USER" VALUES(?,?)`
-        const aValues = [oUser.usid, oUser.name];
+        const sSql = `INSERT INTO "BAG" VALUES(?,?)`
+        const aValues = [oBag.usid, oBag.name];
 
         req.log.debug(aValues);
         req.log.debug(sSql);
@@ -58,7 +58,7 @@ module.exports = function () {
     });
 
 
-    this.after("READ", "Users", (entity) => {
+    this.after("READ", "Bags", (entity) => {
         if (entity.length > 0) {
            // entity.forEach(item => item.mandt = "");
             entity.forEach(item => item.name = "");

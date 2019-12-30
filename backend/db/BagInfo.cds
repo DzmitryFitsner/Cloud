@@ -1,5 +1,5 @@
-﻿using User from './User';
-using Id from './User';
+﻿using Bag from './Bag';
+using Id from './Bag';
 
 		entity Address {
 		    key adid : Id;
@@ -9,10 +9,10 @@ using Id from './User';
 		    hnum : Integer;
 		};
 
-		entity Cars {
+		entity Laptops {
 		    key crid : Id;
 		    usid : String(4);
 		    name : String(100);
 
-    		toUser : association to one User on toUser.usid = usid;
+    		toBag : association to one Bag on toBag.usid = usid;
 		};
