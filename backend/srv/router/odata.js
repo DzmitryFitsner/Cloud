@@ -5,6 +5,10 @@
 const dbClass = require(global.__base + "utils/dbClass");
 const hdbext = require("@sap/hdbext");
 
+const ENTITY = [ { BAG:   "Bag" },
+                 { ADDRESS:   "Address" } ];
+
+
 const addWhereClause = (req, aWhere) => {
     req.query.SELECT.where = req.query.SELECT.where ?
         req.query.SELECT.where.concat(["and"]).concat(aWhere) :
@@ -28,7 +32,7 @@ module.exports = function () {
         // }
     });
 
-    this.on("CREATE", "Bags", async (Bag) => {
+    this.on("CREATE", ENTITY.BAG, async (Bag) => {
         req.log.debug(`ON CREATE ${req.target["@Common.Label"]}`);
 
         const {
