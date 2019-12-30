@@ -7,9 +7,9 @@ const express = require("express");
 const dbClass = require(global.__base + "utils/dbClass");
 
 
-function _prepareObject(oUser, req) {
-		oUser.changedBy = "DebugUser";
-    return oUser;
+function _prepareObject(oBag, req) {
+		oBag.changedBy = "DebugUser";
+    return oBag;
 }
 
 
@@ -18,15 +18,15 @@ module.exports = () => {
 
     app.get("/", async (req, res, next) => {
         const logger = req.loggingContext.getLogger("/Application");
-        logger.info('user get request');
+        logger.info('bag get request');
         let tracer = req.loggingContext.getTracer(__filename);
-        tracer.entering("/user", req, res);
+        tracer.entering("/bag", req, res);
 
         try {
-            tracer.exiting("/user", "User Get works");
-            res.type("application/json").status(201).send(JSON.stringify({text: "User Get works"}));
+            tracer.exiting("/bag", "Bag Get works");
+            res.type("application/json").status(201).send(JSON.stringify({text: "Bag Get works"}));
         } catch (e) {
-            tracer.catching("/user", e);
+            tracer.catching("/bag", e);
             next(e);
         }
     });
@@ -38,14 +38,14 @@ module.exports = () => {
             const oUser = _prepareObject(req.body, req);
 				    oUser.usid = await db.getNextval("usid");
 
-            const sSql = "INSERT INTO \"USER\" VALUES(?,?)";
-						const aValues = [ oUser.usid, oUser.name ];
+            const sSql = "INSERT INTO \"BAG\" VALUES(?,?)";
+						const aValues = [ oBag.usid, oBag.name ];
 
 						console.log(aValues);
 						console.log(sSql);
             await db.executeUpdate(sSql, aValues);
 
-            res.type("application/json").status(201).send(JSON.stringify(oUser));
+            res.type("application/json").status(201).send(JSON.stringify(oBag));
         } catch (e) {
             next(e);
         }
@@ -56,8 +56,8 @@ module.exports = () => {
             const db = new dbClass(req.db);
 
             const oUser = _prepareObject(req.body, req);
-            const sSql = "UPDATE \"USER\" SET \"NAME\" = ? WHERE \"USID\" = ?";
-						const aValues = [ oUser.name, oUser.usid ];
+            const sSql = "UPDATE \"BAG\" SET \"NAME\" = ? WHERE \"USID\" = ?";
+						const aValues = [ oUser.name, oBag.usid ];
 
             await db.executeUpdate(sSql, aValues);
 
