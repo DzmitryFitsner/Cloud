@@ -6,8 +6,6 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-// import com.leverx.sample.Cars;
-// import com.leverx.sample.Cars_;
 import my.bookshop.Books;
 import my.bookshop.Books_;
 import com.sap.cds.ql.Select;
@@ -40,9 +38,9 @@ public class BookRepositoryImpl implements BookRepository {
 		persistenceService.run(query);
 	}
 
-	// @Override
-	// public List<Books> getBooksByTITLE(List<String> titleList) {
-	// 	CqnSelect query = Select.from(Books_.class).where(book -> book.TITLE().in(titleList.stream().toArray(String[]::new)));
-	// 	return persistenceService.run(query).listOf(Books.class);
-	// }
+	@Override
+	public List<Books> getBooksByTITLE(List<String> titleList) {
+		CqnSelect query = Select.from(Books_.class).where(book -> book.title().in(titleList.stream().toArray(String[]::new)));
+		return persistenceService.run(query).listOf(Books.class);
+	}
 }

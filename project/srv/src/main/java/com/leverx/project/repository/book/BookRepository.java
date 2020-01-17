@@ -9,6 +9,6 @@ public interface BookRepository extends Repository<Books, String> {
 	
 	public void setSingleAttrById(String id, String prop, Object value);
 	
-	// public List<Books> getBooksByTITLE(List<String> titleList);
+	public List<Books> getBooksByTITLE(List<String> titleList);
 	
 }

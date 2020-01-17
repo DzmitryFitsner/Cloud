@@ -7,15 +7,15 @@ entity Books : cuid{
   title  : String;
   stock  : Integer;
   description : String(200);
-  // author : Association to Authors;
-
-  authors : Association to Authors;
+  author : Association to Authors;
+  inspected : Boolean default true;
 }
 
 entity Authors : cuid{
   key ID : Integer;
   name   : String;
   description : String(200);
-  books  : Association to many Books on books.authors = $self;
+  rich : Boolean default false;
+  books  : Association to many Books on books.author = $self;
 
 }
